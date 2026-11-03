@@ -10,7 +10,9 @@ namespace ChessDotComSharp
 {
     public partial class ChessDotComClient : IDisposable
     {
-        private static HttpClient _client;
+        // Instance-scoped: a static field here meant every Dispose() tore down the client that
+        // other concurrently running instances were still using.
+        private readonly HttpClient _client;
 
         /// <summary>
         /// Creates a client.
